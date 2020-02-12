@@ -14,7 +14,7 @@ On project root run:
   
 * By default the app runs in:
     * http://localhost:3000
-    * In other case in command prompt prints the port where's runs
+    * In other case in command prompt prints the port where's running
 
 Database
 -----
@@ -38,198 +38,163 @@ Database keys are in the file src/keys.js
   
   
 ### POST /createProduct
-  
 Example: http://localhost:3000/createProduct
 
 Request body:
 
 	{
-	   "user" : "username",
-	   "password" : "mypass",
-	   "repeat" : "mypass",
-	   "kind" : "1"
+	   "name": "Printer",
+	    "price": 900,
+	    "description": "Printer HP",
+	    "stock": 34
 	}
   
  Good response: <br />
  
 	{
-	   "success": "User created successfully"
+	   "success": "Product created."
 	}
   
-> Code: `201 Created` <br />
 
 ### GET /getAllProducts
-Right response returns a token for authorization headers.<br>
-The token was configured to expire in 30 minutes. <br/>
-Example: http://example.com/api/v1/loguin
-
-
-Request body:
-
-	{
-	   "user" : "username",
-	   "password" : "mypass"
-	}
+Example: http://localhost:3000/getAllProducts
 
 Good response: <br />
  
 	{
-	    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImV4cCI6MTUzNzAyODkwNH0.ttyFoOfY4MCQqcLsUjf-hkATulGXp81lJ4sXGZvCuQg"
-	}
+        "id": 1,
+        "name": "Ipad",
+        "price": 4200,
+        "description": "Ipad Pro 2019",
+        "stock": 16
+    },
+    {
+        "id": 2,
+        "name": "Xbox one",
+        "price": 5000,
+        "description": "Xbox one 1 tb",
+        "stock": 10
+    }
   
-> Code: `202 Accepted` <br />
 
 ### GET /getProductId/[id]
-Example: http://example.com/api/v1/createProduct
-
-Request body:
-
-	{
-	   "name" : "iPhone X",
-	   "npc" : "123456",
-	   "stock" : "10",
-	   "price" : "19900"
-	}
-> Authorization header: [token]
+Example: http://localhost:3000/getProductId/1
   
  Good response: <br />
  
 	{
-	   "success": "A new product has been created!"
+	   "id": 1,
+        "name": "Ipad",
+        "price": 4200,
+        "description": "Ipad Pro 2019",
+        "stock": 16
 	}
   
-> Code: `201 Created` <br />
 
-### GET /getProductName/[id]
-  
-Example: http://example.com/api/v1/getProduct/[id]
+### GET /getProductName/[name] 
+Example: http://localhost:3000/getProductName/Ipad
 
   
  Good response: <br />
  
 	{
-	   "Name": "iPhone X",
-	    "Price": "19900",
-	    "NPC": "123456",
-	    "last_update": "2018-09-15 17:21:12.907826+00:00",
-	    "likes": 0,
-	    "id": 1,
-	    "Stock": "10"
+        "id": 1,
+        "name": "Ipad",
+        "price": 4200,
+        "description": "Ipad Pro 2019",
+        "stock": 16
 	}
   
-> Code: `200 OK` <br />
 
-### PUT /updateProduct/[id]
-  
-Example: http://example.com/api/v1/getProductByName/iPhone
+### PUT /updateProduct/[id] 
+Example: http://localhost:3000/updateProduct/1
 
-  
+ Request body:
+
+	{
+	    "price": 3500,
+	    "description": "Ipad Pro 2018"
+	}
+
  Good response: <br />
  
 	{
-	   "Name": "iPhone X",
-	    "Price": "19900",
-	    "NPC": "123456",
-	    "last_update": "2018-09-15 17:21:12.907826+00:00",
-	    "likes": 0,
-	    "id": 1,
-	    "Stock": "10"
+	   "success": "Product updated."
 	}
   
-> Code: `200 OK` <br />
 
 ### DELETE /deleteProduct/[id]
-* There are 2 parameters avalible:
-	* name
-	* likes
-Example: http://example.com/api/v1/getAllProducts/name
+Example: http://localhost:3000/getAllProducts/name
 
   
  Good response: <br />
  
 	{
-	      	"Name": "iPhone 8",
-		"Price": "12500",
-		"NPC": "123455",
-		"last_update": "2018-09-15 17:21:12.907826+00:00",
-		"likes": 0,
-		"id": "2",
-		"Stock": "10"
-	}
-	{
-	  	"Name": "iPhone X",
-	   	"Price": "19900",
-	   	"NPC": "123456",
-	   	"last_update": "2018-09-15 17:21:12.907826+00:00",
-	   	"likes": 0,
-	   	"id": 1,
-	   	"Stock": "10"
+	    "success": "Product deleted."
 	}
   
-> Code: `200 OK` <br />
+
 
 ### POST /createPurchase
 
-Example: http://example.com/api/v1/updateProductPrice
+Example: http://localhost:3000/createPurchase
 
 Request body:
 
 	{
-	   "id" : "1",
-	   "price" : "20000",
+	    "id_product": 4,
+        "date_purchase": "2020-02-12",
+        "customer_name": "Comprador",
+        "quantity": 2
 	}
-> Authorization header: [token]
   
  Good response: <br />
  
 	{
-	   "success": "Product has been updated!"
+	   "success": "You got it."
 	}
   
-> Code: `200 OK` <br />
 
 ### GET /getAllPurchases
 
-Example: http://example.com/api/v1/deleteProduct
-
-Request body:
-
-	{
-	   "id" : "1",
-	}
-> Authorization header: [token]
+Example: http://localhost:3000/getAllPurchases
   
  Good response: <br />
  
 	{
-	   "success": "Product has been deleted!"
-	}
+        "id": 1,
+        "id_product": 2,
+        "date_purchase": "2020-02-11T06:00:00.000Z",
+        "customer_name": null,
+        "quantity": 0
+    },
+    {
+        "id": 2,
+        "id_product": 2,
+        "date_purchase": "2020-02-11T06:00:00.000Z",
+        "customer_name": "Juan",
+        "quantity": 0
+    }
   
-> Code: `200 OK` <br />
 
 
 
 ### GET /getPurchaseId/[id]
-For this operation the user must be "registered" kind. <br/>
-Example: http://example.com/api/v1/likeProduct
+Example: http://localhost:3000/getPurchaseId/1
 
-Request body:
-
-	{
-	   "productId" : "1",
-	}
-> Authorization header: [token]
-  
  Good response: <br />
  
 	{
-	   "success": "Like Saved!"
+        "id_purchase": "1",
+        "date_purchase": "2020-02-11T06:00:00.000Z",
+        "customer_name": "Miguel",
+        "product_id": 4,
+        "product_name": "Celular",
+        "product_price": 5000,
+        "product_description": "Celular Xiaomi",
+        "quantity": 3,
+        "total": 15000
 	}
-  
-> Code: `200 OK` <br />
-
-```
-
 
 ## Test in Postman
-You can test the app easily using [Postman](https://www.getpostman.com/) importing the [E-commerce.postman_collection.json](https://github.com/3vilware/E-commerce-API/blob/master/E-commerce.postman_collection.json) file.
+You can test the app easily using [Postman](https://www.getpostman.com/) importing the [TechChallenge E-Commerce.postman_collection.json](https://github.com/MiguelSeanez/Tech-Challenge/blob/master/TechChallenge%20E-Commerce.postman_collection.json) file.
